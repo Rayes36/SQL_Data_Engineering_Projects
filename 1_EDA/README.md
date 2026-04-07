@@ -1,4 +1,4 @@
-# 🔍 Exploratory Data Analysis w/ SQL: Job Market Analytics
+# 🔍 Exploratory Data Analysis with SQL: Job Market Analytics
 
 ![EDA Project Overview](/Resources/Project1_EDA.png)
 
