@@ -1,10 +1,12 @@
-# Data Engineering Projects
+# SQL Data Engineering Projects
 
-Hands-on projects to reinforce core data engineering concepts.
+Hands-on projects to reinforce core data engineering concepts and skills with data engineering tools.
 
-# Projects
+> Click the project name below to view the tools i used to build these!
 
-## [1_EDA/](./1_EDA/) - Exploratory Data Analysis
+## Projects
+
+### [1. EDA](./1_EDA/) - Exploratory Data Analysis
 ![EDA Project Overview](Resources/Project1_EDA.png)
 SQL-driven analysis of data related job market trends in Indonesia using advanced querying techniques.
 
