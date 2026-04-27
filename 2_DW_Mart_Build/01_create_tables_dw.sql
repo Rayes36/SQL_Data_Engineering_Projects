@@ -1,8 +1,13 @@
--- Drop table
+-- Step 1: DW - Create star schema tables
+
+SELECT '=== Dropping all TABLE ===' AS info;
+
 DROP TABLE IF EXISTS skills_job_dim;
 DROP TABLE IF EXISTS job_postings_fact;
 DROP TABLE IF EXISTS skills_dim;
 DROP TABLE IF EXISTS company_dim;
+
+SELECT '=== Creating TABLE ===' AS info;
 
 -- Create star schema table
 CREATE TABLE IF NOT EXISTS company_dim(
@@ -12,7 +17,7 @@ CREATE TABLE IF NOT EXISTS company_dim(
 
 CREATE TABLE IF NOT EXISTS skills_dim(
     skill_id INTEGER PRIMARY KEY,
-    skill VARCHAR,
+    skills VARCHAR,
     type VARCHAR
 );
 
@@ -27,7 +32,7 @@ CREATE TABLE IF NOT EXISTS job_postings_fact(
     job_work_from_home BOOLEAN,
     search_location VARCHAR,
     job_posted_date TIMESTAMP,
-    job_no_degree_mentioned BOOLEAN,
+    job_no_degree_mention BOOLEAN,
     job_health_insurance BOOLEAN,
     job_country VARCHAR,
     salary_rate VARCHAR,
