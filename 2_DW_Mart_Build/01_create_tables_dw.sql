@@ -1,13 +1,9 @@
 -- Step 1: DW - Create star schema tables
 
-SELECT '=== Dropping all TABLE ===' AS info;
-
 DROP TABLE IF EXISTS skills_job_dim;
 DROP TABLE IF EXISTS job_postings_fact;
 DROP TABLE IF EXISTS skills_dim;
 DROP TABLE IF EXISTS company_dim;
-
-SELECT '=== Creating TABLE ===' AS info;
 
 -- Create star schema table
 CREATE TABLE IF NOT EXISTS company_dim(

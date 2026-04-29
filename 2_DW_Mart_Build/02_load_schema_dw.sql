@@ -82,7 +82,6 @@ INSERT INTO dw_marts.main.skills_job_dim(
         read_csv('https://storage.googleapis.com/sql_de/skills_job_dim.csv', AUTO_DETECT=TRUE)
 ;
 
-SELECT '=== Validation ===' AS info;
 SELECT 'company_dim' AS name, format('{:,}', COUNT(*)) AS total_rows FROM dw_marts.main.company_dim
 UNION ALL
 SELECT 'skills_dim', format('{:,}', COUNT(*)) FROM dw_marts.main.skills_dim
