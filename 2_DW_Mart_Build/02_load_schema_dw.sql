@@ -82,13 +82,13 @@ INSERT INTO dw_marts.main.skills_job_dim(
         read_csv('https://storage.googleapis.com/sql_de/skills_job_dim.csv', AUTO_DETECT=TRUE)
 ;
 
-SELECT 'company_dim' AS name, format('{:,}', COUNT(*)) AS total_rows FROM dw_marts.main.company_dim
+SELECT 'Company Dimension' AS name, format('{:,}', COUNT(*)) AS total_rows FROM dw_marts.main.company_dim
 UNION ALL
-SELECT 'skills_dim', format('{:,}', COUNT(*)) FROM dw_marts.main.skills_dim
+SELECT 'Skills Dimension', format('{:,}', COUNT(*)) FROM dw_marts.main.skills_dim
 UNION ALL
-SELECT 'job_postings_fact', format('{:,}', COUNT(*)) FROM dw_marts.main.job_postings_fact
+SELECT 'Job Postings', format('{:,}', COUNT(*)) FROM dw_marts.main.job_postings_fact
 UNION ALL
-SELECT 'skills_job_dim', format('{:,}', COUNT(*)) FROM dw_marts.main.skills_job_dim;
+SELECT 'Skills-Job Dimension', format('{:,}', COUNT(*)) FROM dw_marts.main.skills_job_dim;
 
 SELECT * FROM dw_marts.main.company_dim LIMIT 5;
 SELECT * FROM dw_marts.main.skills_dim LIMIT 5;

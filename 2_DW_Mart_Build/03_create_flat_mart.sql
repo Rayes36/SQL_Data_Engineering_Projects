@@ -1,10 +1,9 @@
 -- Step 3: Mart - Create and load data from DW to FM
-DROP TABLE IF EXISTS dw_marts.flat_mart.flat_table;
-
-DROP SCHEMA IF EXISTS flat_mart;
+DROP SCHEMA IF EXISTS flat_mart CASCADE;
 
 CREATE SCHEMA IF NOT EXISTS flat_mart;
 
+SELECT '=== Creating flat_table TABLE ===' AS info;
 CREATE OR REPLACE TABLE dw_marts.flat_mart.flat_table AS
     SELECT
         jpf.* EXCLUDE(company_id),
@@ -25,6 +24,6 @@ CREATE OR REPLACE TABLE dw_marts.flat_mart.flat_table AS
         ON sd.skill_id = sjd.skill_id
     GROUP BY ALL;
 
-SELECT 'flat_table' AS name, format('{:,}', COUNT(*)) AS total_rows FROM dw_marts.flat_mart.flat_table;
+SELECT 'Flat Table' AS name, format('{:,}', COUNT(*)) AS total_rows FROM dw_marts.flat_mart.flat_table;
 
 SELECT * FROM dw_marts.flat_mart.flat_table LIMIT 5;

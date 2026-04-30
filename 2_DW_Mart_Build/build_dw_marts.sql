@@ -6,4 +6,6 @@
 .read 02_load_schema_dw.sql
 -- Step 3: Mart - Create and load data from DW to Mart
 .read 03_create_flat_mart.sql
+-- Step 4: Mart - Create and load data from DW to SM
+.read 04_create_skils_mart.sql
 SELECT '=== All processes are done ===' AS info;
