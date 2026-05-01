@@ -1,4 +1,4 @@
--- Step 4: Mart - Create and load data from DW to SM
+-- Step 4: Skills Mart - Create and load data from DW to SM
 DROP SCHEMA IF EXISTS skills_mart CASCADE;
 
 CREATE SCHEMA IF NOT EXISTS skills_mart;

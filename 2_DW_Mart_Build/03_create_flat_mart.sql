@@ -1,4 +1,4 @@
--- Step 3: Mart - Create and load data from DW to FM
+-- Step 3: Flat Mart - Create and load data from DW to FM
 DROP SCHEMA IF EXISTS flat_mart CASCADE;
 
 CREATE SCHEMA IF NOT EXISTS flat_mart;
