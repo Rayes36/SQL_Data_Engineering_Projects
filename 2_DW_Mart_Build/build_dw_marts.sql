@@ -21,4 +21,7 @@
 -- Step 6: Priority Mart - Update priority mart
 .read 06_update_priority_mart.sql
 
+-- Step 7: Company Mart - Create and load company mart
+.read 07_create_company_mart.sql
+
 SELECT '=== All processes are done ===' AS info;

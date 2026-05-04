@@ -1,3 +1,4 @@
+-- Step 7: Company Mart - Create and load company mart
 DROP SCHEMA IF EXISTS company_mart CASCADE;
 
 CREATE SCHEMA IF NOT EXISTS company_mart;
@@ -6,6 +7,7 @@ CREATE TABLE IF NOT EXISTS dw_marts.company_mart.dim_job_title_short(
     job_title_short_id INTEGER PRIMARY KEY,
     job_title_short VARCHAR
 );
+SELECT '=== Loading dim_job_title_short TABLE ===' AS info;
 INSERT INTO dw_marts.company_mart.dim_job_title_short(
     job_title_short_id,
     job_title_short
@@ -25,6 +27,7 @@ CREATE TABLE IF NOT EXISTS dw_marts.company_mart.dim_job_title(
     job_title_id INTEGER PRIMARY KEY,
     job_title VARCHAR
 );
+SELECT '=== Loading dim_job_title TABLE ===' AS info;
 INSERT INTO dw_marts.company_mart.dim_job_title(
     job_title_id,
     job_title
@@ -47,6 +50,7 @@ CREATE TABLE IF NOT EXISTS dw_marts.company_mart.bridge_job_title(
     FOREIGN KEY(job_title_short_id) REFERENCES company_mart.dim_job_title_short(job_title_short_id),
     FOREIGN KEY(job_title_id) REFERENCES company_mart.dim_job_title(job_title_id)
 );
+SELECT '=== Loading bridge_job_title TABLE ===' AS info;
 INSERT INTO dw_marts.company_mart.bridge_job_title(
     job_title_short_id,
     job_title_id
@@ -68,6 +72,7 @@ CREATE TABLE IF NOT EXISTS dw_marts.company_mart.dim_company(
     company_id INTEGER PRIMARY KEY,
     company_name VARCHAR
 );
+SELECT '=== Loading dim_company TABLE ===' AS info;
 INSERT INTO dw_marts.company_mart.dim_company(
     company_id,
     company_name
@@ -86,6 +91,7 @@ CREATE TABLE IF NOT EXISTS dw_marts.company_mart.dim_location(
     job_country VARCHAR,
     job_location VARCHAR
 );
+SELECT '=== Loading dim_location TABLE ===' AS info;
 INSERT INTO dw_marts.company_mart.dim_location(
     location_id,
     job_country,
@@ -115,6 +121,7 @@ CREATE TABLE IF NOT EXISTS dw_marts.company_mart.bridge_company_location(
     FOREIGN KEY(company_id) REFERENCES company_mart.dim_company(company_id),
     FOREIGN KEY(location_id) REFERENCES company_mart.dim_location(location_id)
 );
+SELECT '=== Loading bridge_company_location TABLE ===' AS info;
 INSERT INTO dw_marts.company_mart.bridge_company_location(
     company_id,
     location_id
@@ -136,6 +143,7 @@ CREATE TABLE IF NOT EXISTS dw_marts.company_mart.dim_date_month(
     year INTEGER,
     month INTEGER
 );
+SELECT '=== Loading dim_date_month TABLE ===' AS info;
 INSERT INTO dw_marts.company_mart.dim_date_month(
     month_start_date,
     year,
@@ -167,6 +175,7 @@ CREATE TABLE IF NOT EXISTS dw_marts.company_mart.fact_company_hiring_monthly(
     FOREIGN KEY(job_title_short_id) REFERENCES company_mart.dim_job_title_short(job_title_short_id),
     FOREIGN KEY(month_start_date) REFERENCES company_mart.dim_date_month(month_start_date)
 );
+SELECT '=== Loading fact_company_hiring_monthly TABLE ===' AS info;
 INSERT INTO dw_marts.company_mart.fact_company_hiring_monthly(
     company_id,
     job_title_short_id,
@@ -220,3 +229,28 @@ GROUP BY
     djs.job_title_short_id,
     ddm.month_start_date,
     jpf.job_country;
+
+SELECT 'Job Title Short Dimension' AS name, format('{:,}', COUNT(*)) AS total_rows FROM dw_marts.company_mart.dim_job_title_short
+UNION ALL
+SELECT 'Job Title Dimension', format('{:,}', COUNT(*)) FROM dw_marts.company_mart.dim_job_title
+UNION ALL
+SELECT 'Job Title Bridge', format('{:,}', COUNT(*)) FROM dw_marts.company_mart.bridge_job_title
+UNION ALL
+SELECT 'Company Dimension', format('{:,}', COUNT(*)) FROM dw_marts.company_mart.dim_company
+UNION ALL
+SELECT 'Location Dimension', format('{:,}', COUNT(*)) FROM dw_marts.company_mart.dim_location
+UNION ALL
+SELECT 'Company Location Bridge', format('{:,}', COUNT(*)) FROM dw_marts.company_mart.bridge_company_location
+UNION ALL
+SELECT 'Date Month Dimension', format('{:,}', COUNT(*)) FROM dw_marts.company_mart.dim_date_month
+UNION ALL
+SELECT 'Company Hiring Monthly Fact', format('{:,}', COUNT(*)) FROM dw_marts.company_mart.fact_company_hiring_monthly;
+
+SELECT * FROM dw_marts.company_mart.dim_job_title_short LIMIT 5;
+SELECT * FROM dw_marts.company_mart.dim_job_title LIMIT 5;
+SELECT * FROM dw_marts.company_mart.bridge_job_title LIMIT 5;
+SELECT * FROM dw_marts.company_mart.dim_company LIMIT 5;
+SELECT * FROM dw_marts.company_mart.dim_location LIMIT 5;
+SELECT * FROM dw_marts.company_mart.bridge_company_location LIMIT 5;
+SELECT * FROM dw_marts.company_mart.dim_date_month LIMIT 5;
+SELECT * FROM dw_marts.company_mart.fact_company_hiring_monthly LIMIT 5;
