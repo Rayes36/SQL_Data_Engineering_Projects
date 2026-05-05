@@ -34,4 +34,3 @@ target/
 __pycache__/
 
 # temp
-*.png
