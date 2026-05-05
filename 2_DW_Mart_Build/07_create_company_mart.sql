@@ -20,7 +20,9 @@ FROM
 WHERE 
     job_title_short IS NOT NULL
 GROUP BY 
-    job_title_short;
+    job_title_short
+ORDER BY
+    job_title_short ASC;
 
 
 CREATE TABLE IF NOT EXISTS dw_marts.company_mart.dim_job_title(
@@ -197,6 +199,9 @@ WITH jpf_year_month AS(
             WHEN salary_hour_avg IS NOT NULL THEN salary_hour_avg * 2080
             ELSE NULL
         END AS combined_salary,
+        CASE WHEN job_work_from_home = TRUE THEN 1 ELSE 0 END AS is_remote,
+        CASE WHEN job_health_insurance = TRUE THEN 1 ELSE 0 END AS has_health_insurance,
+        CASE WHEN job_no_degree_mention = TRUE THEN 1 ELSE 0 END AS has_no_degree_mention,
         EXTRACT('YEAR' FROM job_posted_date) AS year,
         EXTRACT('MONTH' FROM job_posted_date) AS month
     FROM dw_marts.main.job_postings_fact
@@ -207,13 +212,13 @@ SELECT
     djs.job_title_short_id,
     ddm.month_start_date,
     jpf.job_country,
-    COUNT(jpf.*) AS postings_count,
+    COUNT(*) AS postings_count,
     MEDIAN(jpf.combined_salary),
     MIN(jpf.combined_salary),
     MAX(jpf.combined_salary),
-    AVG(CASE WHEN job_work_from_home = TRUE THEN 1 ELSE 0 END) AS remote_share,
-    AVG(CASE WHEN job_health_insurance = TRUE THEN 1 ELSE 0 END) AS health_insurance_share,
-    AVG(CASE WHEN job_no_degree_mention = TRUE THEN 1 ELSE 0 END) AS no_degree_mention_share
+    AVG(is_remote) AS remote_share,
+    AVG(has_health_insurance) AS health_insurance_share,
+    AVG(has_no_degree_mention) AS no_degree_mention_share
 FROM
     jpf_year_month AS jpf
 INNER JOIN dw_marts.company_mart.dim_company AS dc
@@ -223,7 +228,6 @@ INNER JOIN dw_marts.company_mart.dim_job_title_short AS djs
 INNER JOIN dw_marts.company_mart.dim_date_month AS ddm
     ON ddm.year = jpf.year
     AND ddm.month = jpf.month
-WHERE jpf.salary_year_avg IS NOT NULL
 GROUP BY
     dc.company_id,
     djs.job_title_short_id,
