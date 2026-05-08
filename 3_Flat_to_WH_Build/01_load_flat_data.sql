@@ -1,3 +1,4 @@
+-- Step 1: Load flat data from CSV
 DROP TABLE IF EXISTS job_postings_flat;
 
 CREATE TABLE IF NOT EXISTS job_postings_flat(
@@ -19,7 +20,7 @@ CREATE TABLE IF NOT EXISTS job_postings_flat(
     job_skills VARCHAR,
     job_type_skills VARCHAR
 );
-
+SELECT '=== Loading job_postings_flat ===' AS info;
 INSERT INTO job_postings_flat(
     job_title_short,
     job_title,
@@ -40,5 +41,5 @@ INSERT INTO job_postings_flat(
     job_type_skills
 )
 SELECT *
-FROM 
+FROM
     read_csv('https://storage.googleapis.com/sql_de/job_postings_flat.csv', AUTO_DETECT=TRUE);
