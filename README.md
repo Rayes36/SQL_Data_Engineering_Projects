@@ -18,8 +18,8 @@ End-to-end ETL pipeline transforming raw CSV files into a star schema data wareh
 
 **Skills**: Dimensional modeling, ETL pipeline development, data mart architecture, production practices
 
-### [3_Flat_to_WH_Build/](./3_Flat_to_WH_Build/) - Flat to Warehouse Build
-
+### [3. Data Warehouse Schema](./3_Flat_to_WH_Build/) - Flat to Warehouse Build
+![Data Pipeline Architecture](Resources/Data_Warehouse.png)
 SQL-driven transformation of flat job posting data into a normalized star schema using DuckDB.
 
 **Skills**: Data transformation, star schema design, ETL pipeline development, production practices
